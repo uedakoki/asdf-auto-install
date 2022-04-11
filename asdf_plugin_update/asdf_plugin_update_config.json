@@ -1,0 +1,31 @@
+{
+    "python": {
+        "plugin_name": "python",
+        "version": "latest",
+        "post_update": [
+            "python -m pip install -U pip setuptools",
+            "python -m pip install --user -U --force-reinstall pipx pynvim trash-cli",
+            "python -m pipx reinstall-all"
+        ]
+    },
+    "miniconda": {
+        "plugin_name": "python",
+        "version": "miniconda3-latest",
+        "post_update": [
+            "conda update -y -n base -c defaults conda",
+            "python -m pip install -U pip setuptools"
+        ]
+    },
+    "nodejs": {
+        "plugin_name": "nodejs",
+        "version": "latest",
+        "post_update": [
+            "npm install -g neovim"
+        ]
+    },
+    "deno": {
+        "plugin_name": "deno",
+        "version": "latest",
+        "post_update": []
+    }
+}
