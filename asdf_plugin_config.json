@@ -6,26 +6,31 @@
             "python -m pip install -U pip setuptools",
             "python -m pip install --user -U --force-reinstall pipx pynvim trash-cli",
             "python -m pipx reinstall-all"
-        ]
+        ],
+        "set_global": true
     },
     "miniconda": {
         "plugin_name": "python",
         "version": "miniconda3-latest",
         "post_update": [
+            "pwd",
             "conda update -y -n base -c defaults conda",
             "python -m pip install -U pip setuptools"
-        ]
+        ],
+        "set_global": false,
+        "force_post_update": true
     },
     "nodejs": {
         "plugin_name": "nodejs",
         "version": "latest",
         "post_update": [
             "npm install -g neovim"
-        ]
+        ],
+        "set_global": true
     },
     "deno": {
         "plugin_name": "deno",
         "version": "latest",
-        "post_update": []
+        "set_global": true
     }
 }

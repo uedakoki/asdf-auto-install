@@ -2,6 +2,7 @@
 from argparse import ArgumentParser
 import sys
 import json
+from pathlib import Path
 
 from plugin_cls import Plugin
 
@@ -12,22 +13,32 @@ def get_args():
     parser.add_argument("plugins", nargs="*")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--all", action="store_true")
-    parser.add_argument("--force-post-update", action="store_true")
 
     return parser.parse_args()
 
 
 def load_config() -> dict:
-    config_file = "asdf_plugin_update_config.json"
+    repohome = Path(__file__).parents[1]
+    config_file = repohome / "asdf_plugin_config.json"
     with open(config_file, "r") as f:
         config_dict = json.load(f)
 
     plugin_dict = {}
     for key, config in config_dict.items():
+
+        if "post_update" not in config:
+            config["post_update"] = []
+        if "set_global" not in config:
+            config["set_global"] = False
+        if "force_post_update" not in config:
+            config["force_post_update"] = False
+
         plugin = Plugin(
             plugin_name=config["plugin_name"],
             version=config["version"],
-            post_update=config["post_update"]
+            post_update=config["post_update"],
+            set_global=config["set_global"],
+            force_post_update=config["force_post_update"]
         )
         plugin_dict[key] = plugin
 
@@ -53,7 +64,7 @@ def main(args):
             print(f'install "{key}" is skipped.')
             continue
 
-        plugin.run_update(args.dry_run, args.force_post_update)
+        plugin.run_update(args.dry_run)
         print(f"install {key} is finished.")
 
 
