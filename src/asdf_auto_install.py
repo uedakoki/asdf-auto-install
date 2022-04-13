@@ -26,19 +26,19 @@ def load_config() -> dict:
     plugin_dict = {}
     for key, config in config_dict.items():
 
-        if "post_update" not in config:
-            config["post_update"] = []
+        if "post_install" not in config:
+            config["post_install"] = []
         if "set_global" not in config:
             config["set_global"] = False
-        if "force_post_update" not in config:
-            config["force_post_update"] = False
+        if "force_post_install" not in config:
+            config["force_post_install"] = False
 
         plugin = Plugin(
             plugin_name=config["plugin_name"],
             version=config["version"],
-            post_update=config["post_update"],
+            post_install=config["post_install"],
             set_global=config["set_global"],
-            force_post_update=config["force_post_update"]
+            force_post_install=config["force_post_install"]
         )
         plugin_dict[key] = plugin
 
@@ -64,7 +64,7 @@ def main(args):
             print(f'install "{key}" is skipped.')
             continue
 
-        plugin.run_update(args.dry_run)
+        plugin.run_install(args.dry_run)
         print(f"install {key} is finished.")
 
 

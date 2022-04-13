@@ -8,14 +8,14 @@ class Plugin:
     def __init__(self,
                  plugin_name: str,
                  version: str = "latest",
-                 post_update: list[str] = [],
+                 post_install: list[str] = [],
                  set_global: bool = True,
-                 force_post_update: bool = False):
+                 force_post_install: bool = False):
         self.plugin_name: str = plugin_name
         self.version: str = version
-        self.post_update: list[str] = post_update
+        self.post_install: list[str] = post_install
         self.set_global: bool = set_global
-        self.force_post_update: bool = force_post_update
+        self.force_post_install: bool = force_post_install
 
         self._repohome: Path = Path(__file__).parents[1]
         self._tmpdir = self._repohome / "tmp"
@@ -53,18 +53,18 @@ class Plugin:
         script = f"asdf local {self.plugin_name} {self.version}"
         _run_script(script, dry_run, cwd=self._tmpdir)
 
-    def _run_post_update(self, dry_run=False) -> None:
-        if len(self.post_update) == 0:
+    def _run_post_install(self, dry_run=False) -> None:
+        if len(self.post_install) == 0:
             return
-        print("==> Post update")
+        print("==> Post install")
         if self.set_global:
-            for script in self.post_update:
+            for script in self.post_install:
                 _run_script(script, dry_run)
         else:
-            for script in self.post_update:
+            for script in self.post_install:
                 _run_script(script, dry_run, cwd=self._tmpdir)
 
-    def run_update(self, dry_run=False):
+    def run_install(self, dry_run=False):
         self._add(dry_run)
         self._update(dry_run)
         self._install(dry_run)
@@ -76,10 +76,10 @@ class Plugin:
             self._clean_tmpdir(dry_run)
             self._local(dry_run)
 
-        if self.force_post_update or (not self.already_installed):
-            self._run_post_update(dry_run)
+        if self.force_post_install or (not self.already_installed):
+            self._run_post_install(dry_run)
         else:
-            print("==> Post update is skipped.")
+            print("==> Post install is skipped.")
 
         if not self.set_global:
             self._clean_tmpdir(dry_run)
@@ -95,6 +95,8 @@ def _run_script(script: str, dry_run=False, cwd=None) -> str:
         p = subprocess.Popen(script, shell=True, cwd=cwd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         while p.poll() is None:
             line = p.stdout.readline().decode().strip()
-            print(line)
-            stdout += line + "\n"
+            if line != "":
+                print(line)
+                stdout += line + "\n"
+        print()
     return stdout
