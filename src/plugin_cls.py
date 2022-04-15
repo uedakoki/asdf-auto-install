@@ -87,9 +87,9 @@ class Plugin:
 
 def _run_script(script: str, dry_run=False, cwd=None) -> str:
     if cwd is None:
-        print(f"==> Run `{script}`")
+        print(f"==> Running `{script}`")
     else:
-        print(f"==> Run `{script}` at {str(cwd)}")
+        print(f"==> Running `{script}` at {str(cwd)}")
     stdout = ""
     if not dry_run:
         p = subprocess.Popen(script, shell=True, cwd=cwd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
