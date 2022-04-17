@@ -10,6 +10,15 @@
         "set_global": true,
         "force_post_install": true
     },
+    "python39": {
+        "plugin_name": "python",
+        "version": "3.9.12",
+        "post_install": [
+            "python -m pip install -U pip setuptools"
+        ],
+        "set_global": false,
+        "force_post_install": true
+    },
     "miniconda": {
         "plugin_name": "python",
         "version": "miniconda3-latest",
