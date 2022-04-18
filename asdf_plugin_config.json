@@ -4,17 +4,17 @@
         "version": "latest",
         "post_install": [
             "python -m pip install -U pip setuptools",
-            "python -m pip install --user -U --force-reinstall pipx pynvim trash-cli",
+            "python -m pip install --user -U --force-reinstall pipx trash-cli pynvim",
             "python -m pipx reinstall-all",
             "python -m pipx install argcomplete",
             "python -m pipx install poetry",
             "python -m pipx install sphinx",
-            "python -m pipx install 'python-lsp-server[all]'",
             "python -m pipx inject sphinx sphinx_rtd_theme",
-            "python -m pipx inject python-lsp-server pylsp-mypy python-lsp-black pyls-isort"
+            "python -m pipx install 'python-lsp-server[all]'",
+            "python -m pipx inject python-lsp-server pylsp-mypy python-lsp-black pyls-isort",
+            "python -m pipx install neovim-remote"
         ],
-        "set_global": true,
-        "force_post_install": true
+        "set_global": true
     },
     "python39": {
         "plugin_name": "python",
@@ -22,19 +22,16 @@
         "post_install": [
             "python -m pip install -U pip setuptools"
         ],
-        "set_global": false,
-        "force_post_install": true
+        "set_global": false
     },
     "miniconda": {
         "plugin_name": "python",
         "version": "miniconda3-latest",
         "post_install": [
-            "pwd",
             "conda install -y -n base -c defaults conda",
             "python -m pip install -U pip setuptools"
         ],
-        "set_global": false,
-        "force_post_install": true
+        "set_global": false
     },
     "nodejs": {
         "plugin_name": "nodejs",
@@ -42,14 +39,12 @@
         "post_install": [
             "npm install -g neovim"
         ],
-        "set_global": true,
-        "force_post_install": true
+        "set_global": true
     },
     "deno": {
         "plugin_name": "deno",
         "version": "latest",
-        "set_global": true,
-        "force_post_install": true
+        "set_global": true
     },
     "rust": {
         "plugin_name": "rust",
@@ -58,7 +53,6 @@
             "cargo install cargo-update cargo-edit",
             "cargo install-update -a"
         ],
-        "set_global": true,
-        "force_post_install": true
+        "set_global": true
     }
 }
