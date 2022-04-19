@@ -5,6 +5,7 @@
         "post_install": [
             "python -m pip install -U pip setuptools",
             "python -m pip install --user -U --force-reinstall pipx pynvim trash-cli",
+            "pipx ensurepath",
             "python -m pipx reinstall-all",
             "python -m pipx install argcomplete",
             "python -m pipx install poetry",
