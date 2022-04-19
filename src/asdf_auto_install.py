@@ -13,6 +13,7 @@ def get_args():
     parser.add_argument("plugins", nargs="*")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--all", action="store_true")
+    parser.add_argument("--force-post-install", action="store_true")
 
     return parser.parse_args()
 
@@ -48,10 +49,7 @@ def load_config() -> dict:
 def main(args):
     plugin_dict = load_config()
 
-    if args.all:
-        plugins = plugin_dict.keys()
-    else:
-        plugins = args.plugins
+    plugins = plugin_dict.keys() if args.all else args.plugins
 
     for key in plugins:
         print("")
@@ -63,6 +61,9 @@ def main(args):
             print(f'Plugin "{key}" is not in plugin_list.', file=sys.stderr)
             print(f'install "{key}" is skipped.')
             continue
+
+        if args.force_post_install:
+            plugin.force_post_install = True
 
         plugin.run_install(args.dry_run)
         print(f"install {key} is finished.")
