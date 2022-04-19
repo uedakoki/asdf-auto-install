@@ -6,14 +6,13 @@
             "python -m pip install -U pip setuptools",
             "python -m pip install --user -U --force-reinstall pipx trash-cli pynvim",
             "pipx ensurepath",
-            "python -m pipx reinstall-all",
-            "python -m pipx install argcomplete",
-            "python -m pipx install poetry",
-            "python -m pipx install sphinx",
+            "python -m pipx install -f argcomplete",
+            "python -m pipx install -f poetry",
+            "python -m pipx install -f sphinx",
             "python -m pipx inject sphinx sphinx_rtd_theme",
-            "python -m pipx install 'python-lsp-server[all]'",
+            "python -m pipx install -f 'python-lsp-server[all]'",
             "python -m pipx inject python-lsp-server pylsp-mypy python-lsp-black pyls-isort",
-            "python -m pipx install neovim-remote"
+            "python -m pipx install -f neovim-remote"
         ],
         "set_global": true
     },
