@@ -46,7 +46,7 @@ def load_config() -> dict:
     return plugin_dict
 
 
-def main(args):
+def install(args):
     plugin_dict = load_config()
 
     plugins = plugin_dict.keys() if args.all else args.plugins
@@ -69,6 +69,10 @@ def main(args):
         print(f"install {key} is finished.")
 
 
-if __name__ == "__main__":
+def main():
     args = get_args()
-    main(args)
+    install(args)
+
+
+if __name__ == "__main__":
+    main()
