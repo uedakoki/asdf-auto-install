@@ -4,7 +4,8 @@ import sys
 import json
 from pathlib import Path
 
-from asdf_auto_install.plugin_cls import Plugin
+# from asdf_auto_install.plugin_cls import Plugin
+from cls import Plugin
 
 
 def get_args():
