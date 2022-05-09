@@ -4,8 +4,8 @@ import sys
 import json
 from pathlib import Path
 
+import asdf_auto_install
 from asdf_auto_install.cls import Plugin
-# from .cls import Plugin
 
 
 def get_args():
@@ -20,6 +20,7 @@ def get_args():
         help="show commands without running")
     parser.add_argument("--force-post-install", action="store_true",
         help="run post install commands even if the plugin already installed")
+    parser.add_argument('--version', action='version', version=asdf_auto_install.__version__)
 
     return parser.parse_args()
 
