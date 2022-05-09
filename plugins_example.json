@@ -45,8 +45,11 @@
         "plugin_name": "python",
         "version": "miniconda3-latest",
         "post_install": [
-            "conda install -y -n base -c defaults conda",
-            "python -m pip install -U pip setuptools"
+            "conda config --add channels intel",
+            "conda config --append channels conda-forge",
+            "conda config --append channels bioconda",
+            "conda config --remove channels defaults",
+            "conda install -y conda pip setuptools"
         ],
         "set_global": false
     },

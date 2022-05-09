@@ -4,24 +4,30 @@ import sys
 import json
 from pathlib import Path
 
-from plugin_cls import Plugin
+# from asdf_auto_install.plugin_cls import Plugin
+from cls import Plugin
 
 
 def get_args():
-    parser = ArgumentParser()
+    parser = ArgumentParser(description="auto installer of asdf plugins")
 
-    parser.add_argument("plugins", nargs="*")
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--all", action="store_true")
-    parser.add_argument("--force-post-install", action="store_true")
+    parser.add_argument("plugins", nargs="*", help="list of plugin name")
+    parser.add_argument("--all", action="store_true",
+        help="install all plugins in your config file")
+    parser.add_argument("--config", default=None,
+        help="path to json config file (default: ~/.config/asdf-auto-install/plugins.json)")
+    parser.add_argument("--dry-run", action="store_true",
+        help="show commands without running")
+    parser.add_argument("--force-post-install", action="store_true",
+        help="run post install commands even if the plugin already installed")
 
     return parser.parse_args()
 
 
-def load_config() -> dict:
-    repohome = Path(__file__).parents[1]
-    config_file = repohome / "asdf_plugin_config.json"
-    with open(config_file, "r") as f:
+def load_config(cfgpath: Path) -> dict:
+    assert cfgpath.is_file(), f"config file: {str(cfgpath)} is not found"
+
+    with open(cfgpath, "r") as f:
         config_dict = json.load(f)
 
     plugin_dict = {}
@@ -46,8 +52,13 @@ def load_config() -> dict:
     return plugin_dict
 
 
-def main(args):
-    plugin_dict = load_config()
+def install(args):
+    if args.config is None:
+        cfgpath = Path.home() / ".config/asdf-auto-install/plugins.json"
+    else:
+        cfgpath = Path(args.config)
+
+    plugin_dict = load_config(cfgpath)
 
     plugins = plugin_dict.keys() if args.all else args.plugins
 
@@ -69,6 +80,10 @@ def main(args):
         print(f"install {key} is finished.")
 
 
-if __name__ == "__main__":
+def main():
     args = get_args()
-    main(args)
+    install(args)
+
+
+if __name__ == "__main__":
+    main()
