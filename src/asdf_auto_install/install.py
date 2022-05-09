@@ -11,12 +11,12 @@ from asdf_auto_install.cls import Plugin
 def get_args():
     parser = ArgumentParser(description="auto installer of asdf plugins")
 
-    parser.add_argument("plugins", nargs="*", help="list of plugin name")
+    parser.add_argument("name", nargs="*", help="list of plugin names in your config")
     parser.add_argument("--all", action="store_true",
         help="install all plugins in your config file")
     parser.add_argument("--config", default=None,
-        help="path to json config file (default: ~/.config/asdf-auto-install/plugins.json)")
-    parser.add_argument("--dry-run", action="store_true",
+        help="path to json config file (default: $HOME/.config/asdf-auto-install/plugins.json)")
+    parser.add_argument("--no-run", action="store_true",
         help="show commands without running")
     parser.add_argument("--force-post-install", action="store_true",
         help="run post install commands even if the plugin already installed")
@@ -60,7 +60,7 @@ def install(args):
 
     plugin_dict = load_config(cfgpath)
 
-    plugins = plugin_dict.keys() if args.all else args.plugins
+    plugins = plugin_dict.keys() if args.all else args.name
 
     for key in plugins:
         print("")
@@ -76,7 +76,7 @@ def install(args):
         if args.force_post_install:
             plugin.force_post_install = True
 
-        plugin.run_install(args.dry_run)
+        plugin.run_install(args.no_run)
         print(f"install {key} is finished.")
 
 
