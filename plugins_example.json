@@ -52,7 +52,7 @@
     },
     "nodejs": {
         "plugin_name": "nodejs",
-        "version": "latest",
+        "version": "17.9.0",
         "post_install": [
             "npm install -g neovim"
         ],
@@ -69,6 +69,14 @@
         "post_install": [
             "cargo install cargo-update cargo-edit",
             "cargo install-update -a"
+        ],
+        "set_global": true
+    },
+    "go": {
+        "plugin_name": "golang",
+        "version": "latest",
+        "post_install": [
+            "go install github.com/cpuguy83/go-md2man/v2@latest"
         ],
         "set_global": true
     }
