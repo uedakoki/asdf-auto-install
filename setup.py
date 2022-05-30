@@ -15,7 +15,7 @@ entry_points = \
 
 setup_kwargs = {
     'name': 'asdf-auto-install',
-    'version': '0.1.0',
+    'version': '0.1.1',
     'description': 'auto installer of asdf plugins',
     'long_description': None,
     'author': 'uedakoki',

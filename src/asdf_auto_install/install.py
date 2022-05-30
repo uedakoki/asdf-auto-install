@@ -26,7 +26,17 @@ def get_args():
 
 
 def load_config(cfgpath: Path) -> dict:
-    assert cfgpath.is_file(), f"config file: {str(cfgpath)} is not found"
+    if not cfgpath.is_file():
+        print(f"config file: {str(cfgpath)} is not found")
+        response = input("Do you create empty config file?: [Y/n]").lower()
+        if response in ["y", "yes"]:
+            cfgpath.parent.mkdir(parents=True, exist_ok=True)
+            print("{}", file=cfgpath)
+            print(f"{cfgpath} is created!")
+        else:
+            print("nothing to do")
+        print("Edit config and run again.")
+        sys.exit(0)
 
     with open(cfgpath, "r") as f:
         config_dict = json.load(f)

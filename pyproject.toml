@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "asdf-auto-install"
-version = "0.1.0"
+version = "0.1.1"
 description = "auto installer of asdf plugins"
 authors = ["uedakoki <k7ml8.p31@gmail.com>"]
 
