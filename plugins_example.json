@@ -18,7 +18,7 @@
     },
     "python39": {
         "plugin_name": "python",
-        "version": "3.9.12",
+        "version": "3.9.13",
         "post_install": [
             "python -m pip install -U pip setuptools"
         ]
@@ -82,5 +82,11 @@
             "go install github.com/cpuguy83/go-md2man/v2@latest"
         ],
         "set_global": true
+    },
+    "ghq": {
+        "plugin_name": "ghq",
+        "version": "latest",
+        "post_install": [
+        ]
     }
 }
