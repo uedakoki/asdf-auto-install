@@ -31,7 +31,7 @@ def load_config(cfgpath: Path) -> dict:
         response = input("Do you create empty config file?: [Y/n]").lower()
         if response in ["y", "yes"]:
             cfgpath.parent.mkdir(parents=True, exist_ok=True)
-            cfgpath.write_text("{}")
+            cfgpath.write_text("{}\n")
             print(f"{cfgpath} is created!")
         else:
             print("nothing to do")
