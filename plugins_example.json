@@ -55,7 +55,7 @@
     },
     "nodejs": {
         "plugin_name": "nodejs",
-        "version": "17.9.0",
+        "version": "latest",
         "post_install": [
             "npm install -g neovim"
         ],
@@ -87,6 +87,11 @@
         "plugin_name": "ghq",
         "version": "latest",
         "post_install": [
-        ]
+            "ghq get -p uedakoki/asdf-auto-install.git",
+            "ghq get -p uedakoki/zsh_config.git",
+            "ghq get -p uedakoki/dotfiles.git",
+            "ghq get -p uedakoki/nvim.git"
+        ],
+        "set_global": true
     }
 }
