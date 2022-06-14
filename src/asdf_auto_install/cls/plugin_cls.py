@@ -5,12 +5,14 @@ from pathlib import Path
 
 
 class Plugin:
-    def __init__(self,
-                 plugin_name: str,
-                 version: str = "latest",
-                 post_install: list[str] = [],
-                 set_global: bool = True,
-                 force_post_install: bool = False):
+    def __init__(
+            self,
+            plugin_name: str,
+            version: str = "latest",
+            post_install: list[str] = [],
+            set_global: bool = True,
+            force_post_install: bool = False
+            ):
         self.plugin_name: str = plugin_name
         self.version: str = version
         self.post_install: list[str] = post_install
