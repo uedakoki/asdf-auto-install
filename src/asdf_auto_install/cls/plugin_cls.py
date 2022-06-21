@@ -20,18 +20,15 @@ class Plugin:
         self.force_post_install: bool = force_post_install
 
         self._repohome: Path = Path(__file__).parents[1]
-        self._tmpdir = self._repohome / "tmp"
         self.already_installed: bool = False
 
-    def _mkdir_tmpdir(self, no_run=False) -> None:
-        script = f"mkdir -p {str(self._tmpdir)}"
-        _run_script(script, no_run)
+    def _mktemp(self) -> None:
+        script = "mktemp -d"
+        self._tmpdir = Path(_run_script(script).strip())
 
-    def _clean_tmpdir(self, no_run=False) -> None:
-        tmpfile = self._tmpdir / ".tool-versions"
-        if tmpfile.is_file():
-            script = f"rm {str(tmpfile)}"
-            _run_script(script, no_run)
+    def _clean_temp(self) -> None:
+        script = f"rm -rf {self._tmpdir}"
+        _run_script(script)
 
     def _add(self, no_run=False) -> None:
         script = f"asdf plugin add {self.plugin_name}"
@@ -74,8 +71,7 @@ class Plugin:
         if self.set_global:
             self._global(no_run)
         else:
-            self._mkdir_tmpdir(no_run)
-            self._clean_tmpdir(no_run)
+            self._mktemp()
             self._local(no_run)
 
         if self.force_post_install or (not self.already_installed):
@@ -84,7 +80,7 @@ class Plugin:
             print("==> Post install is skipped.")
 
         if not self.set_global:
-            self._clean_tmpdir(no_run)
+            self._clean_temp()
 
 
 def _run_script(script: str, no_run=False, cwd=None) -> str:
