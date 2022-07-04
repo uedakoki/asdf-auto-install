@@ -30,14 +30,13 @@
             "python -m pip install -U pip setuptools",
             "python -m pip install --user -U pipx",
             "python -m pipx ensurepath",
-            "python -m pipx install -f jupyterlab",
-            "python -m pipx inject jupyterlab ipywidgets jupyterlab-widgets nodejs",
-            "python -m pipx inject jupyterlab jupyterlab-system-monitor lckr-jupyterlab-variableinspector",
-            "python -m pipx inject jupyterlab jupyterlab-vim jupyterlab-vimrc",
-            "python -m pipx inject jupyterlab jupyterlab-lsp jupyterlab-code-formatter",
-            "python -m pipx inject jupyterlab 'python-lsp-server[all]'",
-            "python -m pipx inject jupyterlab pylsp-mypy python-lsp-black pyls-isort",
-            "ln -sf $HOME/.local/pipx/venvs/jupyterlab/bin/jupyter $HOME/.local/bin/jupyter"
+            "python -m pipx install -f jupyter --include-deps",
+            "python -m pipx inject jupyter jupyterlab ipywidgets jupyterlab-widgets nodejs",
+            "python -m pipx inject jupyter jupyterlab-system-monitor lckr-jupyterlab-variableinspector",
+            "python -m pipx inject jupyter jupyterlab-vim jupyterlab-vimrc",
+            "python -m pipx inject jupyter jupyterlab-lsp jupyterlab-code-formatter",
+            "python -m pipx inject jupyter 'python-lsp-server[all]'",
+            "python -m pipx inject jupyter pylsp-mypy python-lsp-black pyls-isort"
         ],
         "force_post_install": true
     },
